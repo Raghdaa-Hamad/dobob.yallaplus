@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Yalla Hub</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #0b0a08;
+    --gold: #c9a24a;
+    --gold-bright: #e3c274;
+    --cream: #f2ead9;
+    --muted: #a89d87;
+    --plate: #f7f3ea;
+    --line: rgba(201,162,74,0.25);
+  }
+
+  *{ box-sizing: border-box; }
+
+  body{
+    margin:0;
+    background: radial-gradient(ellipse 120% 80% at 50% -10%, #1b1712 0%, var(--bg) 55%);
+    color: var(--cream);
+    font-family: 'Tajawal', 'Inter', sans-serif;
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    padding: 64px 24px 40px;
+    text-align:center;
+  }
+  body.lang-en{ font-family: 'Inter', 'Tajawal', sans-serif; }
+
+  .lang-toggle{
+    position:fixed;
+    top:20px;
+    inset-inline-end:20px;
+    background: transparent;
+    border: 1px solid var(--line);
+    color: var(--muted);
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    letter-spacing: 0.08em;
+    padding: 8px 16px;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    z-index: 10;
+  }
+  .lang-toggle:hover{ color: var(--gold-bright); border-color: var(--gold); }
+
+  .restaurants{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap: 64px;
+    width:100%;
+  }
+
+  .restaurant{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+  }
+
+  .menu-card{
+    display:flex;
+    align-items:center;
+    gap: 16px;
+    background: var(--bg-soft, #141210);
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    padding: 12px 14px;
+    width: 100%;
+    max-width: 420px;
+  }
+  .menu-card .icon{
+    width: 84px;
+    height: 56px;
+    border-radius: 12px;
+    background: var(--plate);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-shrink:0;
+    overflow:hidden;
+  }
+  .menu-card .icon img{
+    width: 84%;
+    height: 84%;
+    object-fit: contain;
+  }
+  .menu-card .name{
+    flex:1;
+    text-align: start;
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--cream);
+  }
+  .menu-card .menu-btn{
+    background: transparent;
+    border: 1px solid var(--line);
+    color: var(--gold-bright);
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 9px 20px;
+    border-radius: 999px;
+    text-decoration:none;
+    transition: all 0.2s ease;
+    flex-shrink:0;
+  }
+  .menu-card .menu-btn:hover{
+    background: var(--gold);
+    color: #17130a;
+    border-color: var(--gold);
+  }
+
+  .plate--wide{
+    width: 280px;
+    height: 150px;
+    border-radius: 28px;
+  }
+
+  .plate{
+    width: 172px;
+    height: 172px;
+    border-radius: 32px;
+    background: var(--plate);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    margin-bottom: 28px;
+    box-shadow: 0 0 0 1px var(--line), 0 20px 48px -16px rgba(0,0,0,0.7), 0 0 60px -10px rgba(201,162,74,0.25);
+    overflow:hidden;
+  }
+  .plate img{
+    width: 84%;
+    height: 84%;
+    object-fit: contain;
+  }
+
+  .plate--main{
+    width: 380px;
+    height: 190px;
+    border-radius: 30px;
+  }
+
+  .plate--transparent{
+    background: transparent;
+    box-shadow: none;
+  }
+  .plate--transparent img{
+    width: 100%;
+    height: 100%;
+  }
+
+  .plate--juices{
+    width: 260px;
+    height: 290px;
+    border-radius: 20px;
+  }
+  .plate--juices img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .menu-card .icon--transparent{
+    background: transparent;
+  }
+  .menu-card .icon--transparent img{
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  .social-icon{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: 1px solid var(--line);
+    color: var(--gold-bright);
+    margin-top: 24px;
+    transition: all 0.2s ease;
+  }
+  .social-icon svg{
+    width: 24px;
+    height: 24px;
+  }
+  .social-icon:hover{
+    background: var(--gold);
+    color: #17130a;
+    border-color: var(--gold);
+  }
+
+  .cta{
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    background: linear-gradient(180deg, var(--gold-bright), var(--gold));
+    color: #17130a;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+    letter-spacing: 0.04em;
+    padding: 15px 34px;
+    border-radius: 999px;
+    text-decoration:none;
+    box-shadow: 0 12px 28px -10px rgba(201,162,74,0.55);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .cta:hover{ transform: translateY(-2px); box-shadow: 0 16px 34px -10px rgba(201,162,74,0.7); }
+  .cta svg{ width:16px; height:16px; }
+  body.lang-ar .cta svg{ transform: scaleX(-1); }
+
+  footer{
+    margin-top: 72px;
+    padding-top: 40px;
+    border-top: 1px solid var(--line);
+    display:flex;
+    align-items:center;
+    gap:8px;
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    letter-spacing: 0.05em;
+    color: var(--muted);
+    width: 100%;
+    justify-content:center;
+  }
+  footer .brand{ color: var(--gold-bright); font-weight: 600; }
+
+  @media (prefers-reduced-motion: no-preference){
+    .restaurant{ animation: rise 0.7s cubic-bezier(0.16,1,0.3,1) both; }
+    .restaurant:nth-child(1){ animation-delay: 0.05s; }
+    .restaurant:nth-child(2){ animation-delay: 0.15s; }
+    .restaurant:nth-child(3){ animation-delay: 0.25s; }
+  }
+  @keyframes rise{
+    from{ opacity:0; transform: translateY(14px); }
+    to{ opacity:1; transform: translateY(0); }
+  }
+
+  :focus-visible{ outline: 2px solid var(--gold-bright); outline-offset: 3px; }
+</style>
+</head>
+<body class="lang-ar">
+
+  <button class="lang-toggle" id="langToggle" aria-label="Switch language">EN</button>
+
+  <div class="restaurants">
+
+    <div class="restaurant">
+      <div class="plate plate--main plate--transparent">
+        <img src="assets/dhabob-logo.jpeg" alt="ضبوب logo">
+      </div>
+      <a class="social-icon" href="https://snapchat.com/t/kgoULMjj" target="_blank" rel="noopener" aria-label="Snapchat">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.036 2c3.813 0 6.474 2.917 6.474 6.309 0 .589-.023 1.234-.06 1.799a.29.29 0 0 0 .164.28c.301.144.831.202 1.212.202.53 0 1.023-.106 1.023.416 0 .316-.216.65-1.106.976-.185.068-.437.144-.73.229-.37.108-.6.397-.487.766.29.94 1.11 1.87 2.653 2.302.29.081.29.44.023.55-.42.174-1.11.35-1.79.44-.18.024-.28.148-.31.32-.05.28-.11.6-.17.83-.06.24-.24.35-.5.32-.34-.04-.79-.14-1.36-.14-.6 0-1.05.11-1.42.22-.4.12-.75.28-1.13.46-.87.42-1.85.9-3.4.9-1.55 0-2.53-.48-3.4-.9-.38-.18-.73-.34-1.13-.46-.37-.11-.82-.22-1.42-.22-.57 0-1.02.1-1.36.14-.26.03-.44-.08-.5-.32-.06-.23-.12-.55-.17-.83-.03-.172-.13-.296-.31-.32-.68-.09-1.37-.266-1.79-.44-.267-.11-.267-.469.023-.55 1.543-.432 2.363-1.362 2.653-2.302.113-.369-.117-.658-.487-.766a10.7 10.7 0 0 1-.73-.229c-.89-.326-1.106-.66-1.106-.976 0-.522.493-.416 1.023-.416.381 0 .911-.058 1.212-.202a.29.29 0 0 0 .164-.28c-.037-.565-.06-1.21-.06-1.799C5.562 4.917 8.223 2 12.036 2Z"/></svg>
+      </a>
+    </div>
+
+    <div class="restaurant">
+      <div class="plate plate--wide plate--transparent">
+        <img src="assets/arriyaf-aden-logo.png" alt="أرياف عدن logo" style="object-fit: cover; width:100%; height:100%;">
+      </div>
+      <div class="menu-card">
+        <div class="icon icon--transparent">
+          <img src="assets/arriyaf-aden-logo.png" alt="">
+        </div>
+        <span class="name" data-ar="أرياف عدن" data-en="Arriyaf Aden">أرياف عدن</span>
+        <a class="menu-btn" href="https://arriyaf-aden.yallaqrcodes.com/branch/1/" target="_blank" rel="noopener" data-ar="القائمة" data-en="Menu">القائمة</a>
+      </div>
+    </div>
+
+    <div class="restaurant">
+      <div class="plate plate--wide plate--transparent">
+        <img src="assets/caffeinea-logo-transparent.png" alt="كافيينا logo">
+      </div>
+      <div class="menu-card">
+        <div class="icon icon--transparent">
+          <img src="assets/caffeinea-logo-transparent.png" alt="">
+        </div>
+        <span class="name" data-ar="كافيينا" data-en="Caffeinea">كافيينا</span>
+        <a class="menu-btn" href="http://caffina.yallaqrcodes.com/" target="_blank" rel="noopener" data-ar="القائمة" data-en="Menu">القائمة</a>
+      </div>
+    </div>
+
+    <div class="restaurant">
+      <div class="plate plate--wide plate--transparent">
+        <img src="assets/juices-logo.png" alt="عصيرات logo">
+      </div>
+      <div class="menu-card">
+        <div class="icon icon--transparent">
+          <img src="assets/juices-logo.png" alt="">
+        </div>
+        <span class="name" data-ar="عصيرات" data-en="Juices">عصيرات</span>
+        <a class="menu-btn" href="http://juices-ksa.yallaqrcodes.com/" target="_blank" rel="noopener" data-ar="القائمة" data-en="Menu">القائمة</a>
+      </div>
+    </div>
+
+    <div class="restaurant">
+      <div class="plate plate--transparent">
+        <img src="assets/firebite-logo.png" alt="فاير بايت logo">
+      </div>
+      <div class="menu-card">
+        <div class="icon icon--transparent">
+          <img src="assets/firebite-logo.png" alt="">
+        </div>
+        <span class="name" data-ar="فاير بايت" data-en="Fire Bite">فاير بايت</span>
+        <a class="menu-btn" href="http://fire-bite.yallaqrcodes.com/" target="_blank" rel="noopener" data-ar="القائمة" data-en="Menu">القائمة</a>
+      </div>
+    </div>
+
+  </div>
+
+  <footer>
+    <span data-ar="بواسطة" data-en="Provided by">بواسطة</span>
+    <span class="brand">yalla</span>
+  </footer>
+
+<script>
+  const body = document.body;
+  const toggle = document.getElementById('langToggle');
+  const els = document.querySelectorAll('[data-ar]');
+  let lang = 'ar';
+
+  function applyLang(l){
+    lang = l;
+    body.classList.toggle('lang-ar', l === 'ar');
+    body.classList.toggle('lang-en', l === 'en');
+    document.documentElement.lang = l;
+    document.documentElement.dir = l === 'ar' ? 'rtl' : 'ltr';
+    els.forEach(el => { el.innerHTML = el.getAttribute('data-' + l); });
+    toggle.textContent = l === 'ar' ? 'EN' : 'AR';
+  }
+
+  toggle.addEventListener('click', () => applyLang(lang === 'ar' ? 'en' : 'ar'));
+</script>
+
+</body>
+</html>
